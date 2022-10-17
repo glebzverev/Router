@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "dexscreener-api": "^0.0.7"
+  },
+  "devDependencies": {
+    "node-fetch": "^3.2.10"
+  }
+}
