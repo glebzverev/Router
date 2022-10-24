@@ -5,6 +5,7 @@
 // secret = require("./secret.json");
 require("@nomicfoundation/hardhat-chai-matchers");
 require('@nomiclabs/hardhat-ethers');
+require("@nomiclabs/hardhat-etherscan");
 const { accounts } = require('./secret.json');
 
 // This is a sample Hardhat task. To learn how to create your own go to
@@ -24,12 +25,15 @@ task("accounts", "Prints the list of accounts", async () => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  defaultNetwork: "bscTestnet",
+  defaultNetwork: "hardhat",
   networks: {
   	localhost: {
       url: "http://127.0.0.1:8545"
     },
     hardhat: {
+      forking: {
+        url: "https://eth-mainnet.g.alchemy.com/v2/dt-X9e68ahXP9Sl1bDn89XXHVT3vBohA" 
+      }
     },
     bscTestnet: {
       url: "https://data-seed-prebsc-1-s1.binance.org:8545/",
@@ -37,6 +41,7 @@ module.exports = {
       gasPrice: 20000000000,
       accounts: accounts
     },
+
     // mainnet: {
     //   url: "https://bsc-dataseed.binance.org/",
     //   chainId: 56,
