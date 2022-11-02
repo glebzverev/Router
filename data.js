@@ -1,6 +1,8 @@
 dexscreen = require("dexscreener-api"); 
 const path = require("./Coin.json");
 
+var fs = require('fs');
+
 
 async function getPairs(path){
     const json = require(path);
@@ -56,12 +58,33 @@ async function data(path){
     console.log(dict);
 }
 
-async function getPair(){
-    let token = await path['eth']['USDT'];
-    console.log(token);
-    let searchResponse = await dexscreen.searchPairsMatchingQuery(token + " 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2");
-    console.log(searchResponse);
+async function getPair(token1, token2){
+    // let token = await path['eth']['USDT'];
+    console.log(token1, token2);
+    let searchResponse = await dexscreen.searchPairsMatchingQuery(`${token1}  ${token2}`);
+    // console.log(searchResponse);
+    return searchResponse;
 }
 
 // data(path);
-getPair()
+async function main () {
+    var data = {};
+    for ( var i in path ){
+        let resp = await getPair(path[i], path[i+1])
+    // console.log(resp);
+    for (var j in resp['pairs']){
+        console.log(resp['pairs'][j])
+        data[resp['pairs'][j]['pairAddress']] = resp['pairs'][j];
+    }
+    }
+
+
+    var jsonData = JSON.stringify(data);
+    fs.writeFile("data.json", jsonData, function(err) {
+        if (err) {
+            console.log(err);
+        }
+    });
+}
+
+main()
