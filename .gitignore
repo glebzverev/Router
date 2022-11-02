@@ -1,0 +1,14 @@
+node_modules
+
+.idea
+
+example/env.mjs
+
+Session.vim
+*.log
+
+build/
+.docusaurus/
+
+dist/
+docs/
