@@ -63,7 +63,9 @@ export const findArbitrage = async (pools) => {
   brute(0);
 
   console.log(`Checked ${checkedPath} arbitrage paths`);
-
+  console.log(profitableArbitrageCycles.sort((a, b) =>
+  b.profit.minus(a.profit).toNumber()
+  ));
   return profitableArbitrageCycles.sort((a, b) =>
     b.profit.minus(a.profit).toNumber()
   );
@@ -150,6 +152,8 @@ export const findArbitrageV2 = async (
         });
     }
   };
+  
+  console.log(path)
 
   brute(0);
 
