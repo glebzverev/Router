@@ -69,13 +69,13 @@ async function getPair(token1, token2){
 // data(path);
 async function main () {
     var data = {};
-    for ( var i in path ){
-        let resp = await getPair(path[i], path[i+1])
-    // console.log(resp);
-    for (var j in resp['pairs']){
-        console.log(resp['pairs'][j])
-        data[resp['pairs'][j]['pairAddress']] = resp['pairs'][j];
-    }
+    for ( var i in path['eth'] ){
+        console.log(path['eth'][i], path['eth'][i+1]);
+        let resp = await getPair(path['eth'][i], path['eth'][i+1])
+        for (var j in resp['pairs']){
+            console.log(resp['pairs'][j])
+            data[resp['pairs'][j]['pairAddress']] = resp['pairs'][j];
+        }
     }
 
 
@@ -85,6 +85,7 @@ async function main () {
             console.log(err);
         }
     });
+
 }
 
 main()
