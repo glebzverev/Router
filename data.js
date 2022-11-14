@@ -61,7 +61,7 @@ async function data(path){
 async function getPair(token1, token2){
     // let token = await path['eth']['USDT'];
     console.log(token1, token2);
-    let searchResponse = await dexscreen.searchPairsMatchingQuery(`${token1}  ${token2}`);
+    let searchResponse = await dexscreen.searchPairsMatchingQuery(`${token1}`);
     // console.log(searchResponse);
     return searchResponse;
 }
@@ -70,12 +70,16 @@ async function getPair(token1, token2){
 async function main () {
     var data = {};
     for ( var i in path['eth'] ){
-        console.log(path['eth'][i], path['eth'][i+1]);
-        let resp = await getPair(path['eth'][i], path['eth'][i+1])
-        for (var j in resp['pairs']){
-            console.log(resp['pairs'][j])
-            data[resp['pairs'][j]['pairAddress']] = resp['pairs'][j];
-        }
+        for ( var k in path['eth'] ) {             
+            console.log(path['eth'][i], path['eth'][k]);
+            if (path['eth'][i] != path['eth'][k]){
+                let resp = await getPair(path['eth'][i], path['eth'][i+1])
+                for (var j in resp['pairs']){
+                    console.log(resp['pairs'][j])
+                    data[resp['pairs'][j]['pairAddress']] = resp['pairs'][j];
+                }
+            }
+        }    
     }
 
 
